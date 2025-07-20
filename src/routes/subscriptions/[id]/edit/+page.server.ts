@@ -35,7 +35,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 export const actions: Actions = {
 	default: async ({ request, params, locals }) => {
 		if (!locals.user) {
-			throw redirect(302, '/demo/lucia/login');
+			throw redirect(302, '//login');
 		}
 
 		const subscription = await getSubscriptionById(params.id);

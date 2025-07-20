@@ -67,9 +67,6 @@ export const actions: Actions = {
 
 			// Create the subscription
 			await createSubscription(locals.user.id, validation.data);
-
-			// Redirect to subscriptions list on success
-			throw redirect(302, '/subscriptions');
 		} catch (error) {
 			if (error instanceof Response) throw error;
 
@@ -81,5 +78,7 @@ export const actions: Actions = {
 				values: subscriptionData
 			});
 		}
+
+		throw redirect(302, '/subscriptions');
 	}
 };
