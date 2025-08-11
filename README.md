@@ -4,12 +4,11 @@ A prototype of subscription tracking application built with SvelteKit, designed 
 
 > Recurrr is a **prototype for proof of concept and is not a production-ready application**. This project was created for demonstration purposes to showcase modern web development practices with SvelteKit.
 
->⚠️ No design and experience polish has been applied yet.
+> ⚠️ No design and experience polish has been applied yet.
 
->⚠️ Zero security features have been implemented, and the app is not ready for real-world use.
+> ⚠️ Zero security features have been implemented, and the app is not ready for real-world use.
 
 ![Recurrr Logo](static/recurrr-logo.jpg)
-
 
 ## 🛠️ Tech Stack
 
@@ -30,22 +29,26 @@ A prototype of subscription tracking application built with SvelteKit, designed 
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd sv-subtrack
    ```
 
 2. **Install dependencies**
+
    ```bash
    bun install
    ```
 
 3. **Set up the database**
+
    ```bash
    bun run db:push
    ```
 
 4. **Start the development server**
+
    ```bash
    bun run dev
    ```
@@ -117,8 +120,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-
 **⚠️ Important Notice**: Recurrr is currently a **prototype for proof of concept** and is not a production-ready application. This project was created for demonstration purposes to showcase modern web development practices with SvelteKit for feedback or ideas, feel free to reach us at [hello@jlrlab.me](mailto:hello@jlrlab.me).
 
-
-*Built with ❤️ using SvelteKit*
+_Built with ❤️ using SvelteKit_

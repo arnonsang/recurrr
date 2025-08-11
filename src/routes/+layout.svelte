@@ -486,18 +486,14 @@
 	<!-- Main Content -->
 	<main class="bg-base-200 min-h-screen pb-20 sm:pb-0">
 		<div class="container mx-auto max-w-7xl p-4">
-			
-
 			{@render children()}
 			<!-- PS badge -->
-			<div class="mb-4 flex items-center justify-between bg-secondary/10 p-3 rounded-lg">
+			<div class="bg-secondary/10 mb-4 flex items-center justify-between rounded-lg p-3">
 				<div class="text-sm opacity-70">
-					<span class="font-medium">Prototype</span> -
-					Recurrr is a proof of concept app. It is not production-ready. No design and experience polish has been applied.
+					<span class="font-medium">Prototype</span> - Recurrr is a proof of concept app. It is not production-ready.
+					No design and experience polish has been applied.
 				</div>
-				<a href="/feedback" class="btn btn-secondary btn-sm">
-					Share Feedback
-				</a>
+				<a href="/feedback" class="btn btn-secondary btn-sm"> Share Feedback </a>
 			</div>
 		</div>
 	</main>

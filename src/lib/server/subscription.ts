@@ -1,7 +1,7 @@
 import { db } from '$lib/server/db';
 import { subscription, category } from '$lib/server/db/schema';
 import type { Subscription, NewSubscription, Category } from '$lib/server/db/schema';
-import { eq, and, desc, asc } from 'drizzle-orm';
+import { eq, and, desc, asc, count } from 'drizzle-orm';
 import { encodeBase32LowerCase } from '@oslojs/encoding';
 
 export interface SubscriptionWithCategory extends Subscription {
@@ -36,6 +36,23 @@ export interface SubscriptionFilters {
 export interface SubscriptionSort {
 	field: 'name' | 'price' | 'nextPayment' | 'createdAt';
 	direction: 'asc' | 'desc';
+}
+
+export interface PaginationOptions {
+	page?: number;
+	limit?: number;
+}
+
+export interface PaginatedResult<T> {
+	data: T[];
+	pagination: {
+		page: number;
+		limit: number;
+		total: number;
+		totalPages: number;
+		hasNext: boolean;
+		hasPrev: boolean;
+	};
 }
 
 export async function createSubscription(
@@ -140,6 +157,79 @@ export async function getSubscriptions(
 		...result.subscription,
 		category: result.category
 	}));
+}
+
+export async function getSubscriptionsPaginated(
+	userId: string,
+	filters: SubscriptionFilters = {},
+	sort: SubscriptionSort = { field: 'nextPayment', direction: 'asc' },
+	pagination: PaginationOptions = { page: 1, limit: 25 }
+): Promise<PaginatedResult<SubscriptionWithCategory>> {
+	const page = Math.max(1, pagination.page || 1);
+	const limit = Math.max(1, Math.min(100, pagination.limit || 25));
+	const offset = (page - 1) * limit;
+
+	// Build conditions
+	const conditions = [eq(subscription.userId, userId)];
+
+	if (filters.categoryId) {
+		conditions.push(eq(subscription.categoryId, filters.categoryId));
+	}
+
+	if (filters.disabled !== undefined) {
+		conditions.push(eq(subscription.disabled, filters.disabled));
+	}
+
+	if (filters.currency) {
+		conditions.push(eq(subscription.currency, filters.currency));
+	}
+
+	if (filters.paidBy) {
+		conditions.push(eq(subscription.paidBy, filters.paidBy));
+	}
+
+	// Get total count
+	const [countResult] = await db
+		.select({ count: count() })
+		.from(subscription)
+		.where(and(...conditions));
+
+	const total = countResult.count;
+	const totalPages = Math.ceil(total / limit);
+
+	// Apply sorting
+	const sortField = subscription[sort.field];
+	const orderBy = sort.direction === 'asc' ? asc(sortField) : desc(sortField);
+
+	// Get paginated results
+	const results = await db
+		.select({
+			subscription: subscription,
+			category: category
+		})
+		.from(subscription)
+		.leftJoin(category, eq(subscription.categoryId, category.id))
+		.where(and(...conditions))
+		.orderBy(orderBy)
+		.limit(limit)
+		.offset(offset);
+
+	const data = results.map((result) => ({
+		...result.subscription,
+		category: result.category
+	}));
+
+	return {
+		data,
+		pagination: {
+			page,
+			limit,
+			total,
+			totalPages,
+			hasNext: page < totalPages,
+			hasPrev: page > 1
+		}
+	};
 }
 
 export async function updateSubscription(

@@ -1,5 +1,12 @@
 <script>
-	import { DollarSign, RefreshCw, CheckCircle, ArrowRight, PlusCircle, MessageCircleWarning } from 'lucide-svelte';
+	import {
+		DollarSign,
+		RefreshCw,
+		CheckCircle,
+		ArrowRight,
+		PlusCircle,
+		MessageCircleWarning
+	} from 'lucide-svelte';
 </script>
 
 <svelte:head>
@@ -81,8 +88,11 @@
 					href="/register"
 					class="btn btn-outline btn-lg w-full transition-all duration-200 hover:scale-105 sm:w-auto sm:min-w-48"
 				>
-				<PlusCircle class="mr-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
-					<span class="transition-transform duration-200 group-hover:scale-110">Create Account</span>
+					<PlusCircle
+						class="mr-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1"
+					/>
+					<span class="transition-transform duration-200 group-hover:scale-110">Create Account</span
+					>
 				</a>
 				<a href="/login" class="btn btn-primary btn-lg group w-full sm:w-auto sm:min-w-48">
 					<span class="transition-transform duration-200 group-hover:scale-110">Sign In</span>
@@ -93,18 +103,15 @@
 			</div>
 
 			<!-- Alert warning -->
-			<div
-				class="mt-8 rounded-lg bg-error/5 p-4 text-error flex items-center justify-between"
-			>
+			<div class="bg-error/5 text-error mt-8 flex items-center justify-between rounded-lg p-4">
 				<div class="flex items-center gap-2">
 					<MessageCircleWarning class="h-5 w-5" />
 					<span class="text-sm">
-						Recurrr is just a <u>prototype for proof of concept</u>. It is not a production-ready app.
+						Recurrr is just a <u>prototype for proof of concept</u>. It is not a production-ready
+						app.
 					</span>
 				</div>
-				<a href="/feedback" class="btn btn-error btn-sm">
-					Share Feedback
-				</a>
+				<a href="/feedback" class="btn btn-error btn-sm"> Share Feedback </a>
 			</div>
 		</div>
 	</div>

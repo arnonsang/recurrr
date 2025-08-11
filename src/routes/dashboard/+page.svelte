@@ -43,7 +43,7 @@
 	</div>
 
 	<!-- Stats Grid -->
-	<div class="stats stats-vertical lg:stats-horizontal w-full shadow bg-base-100">
+	<div class="stats stats-vertical lg:stats-horizontal bg-base-100 w-full shadow">
 		<div class="stat">
 			<div class="stat-figure text-primary">
 				<svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">

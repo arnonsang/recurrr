@@ -4,7 +4,7 @@
 	import { Plus, Check, Lock, Zap, XCircle, Eye, EyeOff } from 'lucide-svelte';
 
 	let { form }: { form: ActionData } = $props();
-	
+
 	let showPassword = $state(false);
 	let showConfirmPassword = $state(false);
 </script>
@@ -92,7 +92,6 @@
 					>
 						Create Account
 					</h2>
-					
 				</div>
 
 				{#if form?.message}
@@ -137,8 +136,8 @@
 							/>
 							<button
 								type="button"
-								class="absolute right-3 top-1/2 -translate-y-1/2 text-base-content/60 hover:text-base-content transition-colors duration-200"
-								onclick={() => showPassword = !showPassword}
+								class="text-base-content/60 hover:text-base-content absolute top-1/2 right-3 -translate-y-1/2 transition-colors duration-200"
+								onclick={() => (showPassword = !showPassword)}
 								aria-label={showPassword ? 'Hide password' : 'Show password'}
 							>
 								{#if showPassword}
@@ -168,8 +167,8 @@
 							/>
 							<button
 								type="button"
-								class="absolute right-3 top-1/2 -translate-y-1/2 text-base-content/60 hover:text-base-content transition-colors duration-200"
-								onclick={() => showConfirmPassword = !showConfirmPassword}
+								class="text-base-content/60 hover:text-base-content absolute top-1/2 right-3 -translate-y-1/2 transition-colors duration-200"
+								onclick={() => (showConfirmPassword = !showConfirmPassword)}
 								aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
 							>
 								{#if showConfirmPassword}
@@ -190,19 +189,20 @@
 							class="btn btn-secondary btn-lg group w-full transition-all duration-200 hover:scale-105"
 						>
 							<Plus class="mr-2 h-5 w-5 transition-transform duration-200 group-hover:scale-110" />
-							<span class="transition-transform duration-200 group-hover:scale-110">Create Account</span>
+							<span class="transition-transform duration-200 group-hover:scale-110"
+								>Create Account</span
+							>
 						</button>
 					</div>
 				</form>
 
-				<p class="mt-2 text-sm opacity-70 text-center">
-						Already have an account?
-						<a
-							href="/login"
-							class="link link-secondary hover:link-accent transition-colors duration-200"
-							>Sign in</a
-						>
-					</p>
+				<p class="mt-2 text-center text-sm opacity-70">
+					Already have an account?
+					<a
+						href="/login"
+						class="link link-secondary hover:link-accent transition-colors duration-200">Sign in</a
+					>
+				</p>
 			</div>
 		</div>
 	</div>

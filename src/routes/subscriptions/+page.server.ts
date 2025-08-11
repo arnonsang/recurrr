@@ -1,6 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { getSubscriptions } from '$lib/server/subscription';
+import { getSubscriptionsPaginated } from '$lib/server/subscription';
 import { getCategories } from '$lib/server/category';
 
 export const load: PageServerLoad = async ({ locals, url }) => {
@@ -19,6 +19,10 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 			'nextPayment';
 		const sortDirection = (url.searchParams.get('sortDirection') as 'asc' | 'desc') || 'asc';
 
+		// Parse pagination parameters
+		const page = parseInt(url.searchParams.get('page') || '1');
+		const limit = parseInt(url.searchParams.get('limit') || '25');
+
 		const filters = {
 			categoryId,
 			disabled: disabled !== null ? disabled === 'true' : undefined,
@@ -31,13 +35,16 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 			direction: sortDirection
 		};
 
-		const [subscriptions, categories] = await Promise.all([
-			getSubscriptions(locals.user.id, filters, sort),
+		const pagination = { page, limit };
+
+		const [result, categories] = await Promise.all([
+			getSubscriptionsPaginated(locals.user.id, filters, sort, pagination),
 			getCategories()
 		]);
 
 		return {
-			subscriptions,
+			subscriptions: result.data,
+			pagination: result.pagination,
 			categories,
 			filters,
 			sort
@@ -46,6 +53,14 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 		console.error('Error loading subscriptions:', error);
 		return {
 			subscriptions: [],
+			pagination: {
+				page: 1,
+				limit: 25,
+				total: 0,
+				totalPages: 0,
+				hasNext: false,
+				hasPrev: false
+			},
 			categories: [],
 			filters: {},
 			sort: { field: 'nextPayment', direction: 'asc' }

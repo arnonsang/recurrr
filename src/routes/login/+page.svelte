@@ -1,7 +1,14 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import type { ActionData } from './$types';
-	import { RotateCcw, CheckCircle, TrendingUp, DollarSign, ArrowRight, XCircle } from 'lucide-svelte';
+	import {
+		RotateCcw,
+		CheckCircle,
+		TrendingUp,
+		DollarSign,
+		ArrowRight,
+		XCircle
+	} from 'lucide-svelte';
 
 	let { form }: { form: ActionData } = $props();
 </script>
@@ -29,7 +36,6 @@
 	<div class="hero-content relative z-10 flex-col lg:flex-row-reverse">
 		<!-- Left side - Welcome content -->
 		<div class="animate-slideInRight text-center lg:ml-12 lg:text-left">
-			
 			<div class="overflow-hidden">
 				<h1
 					class="from-primary via-secondary to-accent animate-fadeInUp bg-gradient-to-r bg-clip-text text-4xl font-black text-transparent lg:text-6xl"
@@ -81,14 +87,12 @@
 			class="card bg-base-100 bg-opacity-90 border-base-300 animate-slideInLeft w-full max-w-sm shrink-0 border shadow-2xl backdrop-blur-lg"
 		>
 			<div class="card-body">
-				
 				<div class="mb-6 text-center">
 					<h2
 						class="from-primary to-secondary bg-gradient-to-r bg-clip-text text-3xl font-bold text-transparent"
 					>
 						Sign In
 					</h2>
-					
 				</div>
 
 				{#if form?.message}
@@ -133,19 +137,21 @@
 							class="btn btn-primary btn-lg group w-full transition-all duration-200 hover:scale-105"
 						>
 							<span class="transition-transform duration-200 group-hover:scale-110">Sign In</span>
-							<ArrowRight class="ml-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
+							<ArrowRight
+								class="ml-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1"
+							/>
 						</button>
 					</div>
 				</form>
 
-				<p class="mt-2 text-sm opacity-70 text-center">
-						New to Recurrr?
-						<a
-							href="/register"
-							class="link link-primary hover:link-secondary transition-colors duration-200"
-							>Create account</a
-						>
-					</p>
+				<p class="mt-2 text-center text-sm opacity-70">
+					New to Recurrr?
+					<a
+						href="/register"
+						class="link link-primary hover:link-secondary transition-colors duration-200"
+						>Create account</a
+					>
+				</p>
 			</div>
 		</div>
 	</div>
